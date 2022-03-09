@@ -1,32 +1,17 @@
 class Solution {
 public:
-    vector<int> ans;
-    void inOrder(TreeNode *root)
-    {
-        if(root==NULL)
-            return ;
-        inOrder(root->left);
-        ans.push_back(root->val);
-        inOrder(root->right);
+    bool helper(TreeNode* root ,long minVal ,long maxVal){
+        if(!root)
+            return true;
+        
+        if(root->val >= maxVal || root->val <= minVal) return  false ;
+        
+        return helper(root->left,minVal,root->val) && helper(root->right,root->val,maxVal);
+            
     }
     bool isValidBST(TreeNode* root) {
-        inOrder(root);
-        int temp;
-        for(int i=0;i<ans.size()-1;i++)
-        {
-            cout<<ans.at(i)<<" ";
-            if(ans.at(i)<ans.at(i+1))
-            {
-                continue;
-            }
-            else
-            {
-                temp = i;
-                break;
-            }
-        }
-        if(temp==ans.size()-1)
-            return true;
-        return false;
+        if(root==NULL)
+            return false;
+        return helper(root, LONG_MIN, LONG_MAX) ;
     }
 };
