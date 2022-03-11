@@ -1,4 +1,4 @@
-/**
+                                                                                                                                        /**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
@@ -9,50 +9,51 @@
  * };
  */
 class Solution {
-public:
-    
-    int size(ListNode* head){
-        int n = 0;
-        while(head != NULL){
-            n++;
-            head = head->next;
+    int listSize(ListNode *head )
+    {
+        int count = 0;
+        ListNode *p = head;
+        while(p!=NULL)
+        {
+            count++;
+            p=p->next;
         }
-        return n;
+        return count;
     }
-    
+public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head == NULL)
+        if(head==NULL)
+            return NULL;
+         int size = listSize(head);
+        if(k==0 || k==size)
             return head;
+       
+        ListNode *ptr = head;
+        ListNode *last = head;
         
-        int n = size(head);
-        int loop = k % n;
-        loop = n - loop;
+        while(last->next!=NULL)
+            last = last -> next;
         
-        if( n == 1 || loop == n)
-            return head;
+        cout<<last->val<<" ";
         
-        int j=0;
-        ListNode* temp = head;
-        ListNode* firstAddress = head;
+        last -> next = head;
         
-        while(temp != NULL){
-            j++;
-            if(j == loop){
-                firstAddress = temp->next;
-                temp->next = NULL;
-                break;
-            }
-            temp = temp->next;
+        
+          cout<<last->next->val<<" ";
+        ListNode *first = last ;
+        int len = size - ( k % size) ;
+       for(int i =0 ;i<len && ptr->next!=NULL;i++)
+        {
+            ptr = ptr ->next;
         }
-        
-        temp = firstAddress;
-        while(temp->next != NULL){
-            temp = temp->next;
-        }
-        
-        temp->next = head;
-        return firstAddress;
-        
-        
+      
+       cout<<ptr->val;
+      
+        head = ptr ;
+        ListNode * p = head;
+        while(p->next != head)
+            p = p->next ;
+        p -> next =NULL;
+        return head;
     }
 };
