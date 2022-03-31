@@ -1,17 +1,34 @@
+/** 
+ * Forward declaration of guess API.
+ * @param  num   your guess
+ * @return 	     -1 if num is higher than the picked number
+ *			      1 if num is lower than the picked number
+ *               otherwise return 0
+ * int guess(int num);
+ */
+
 class Solution {
 public:
     int guessNumber(int n) {
-        int start = 1, end = n, mid, result;
-        
-        while (start <= end) {
-            mid = start + (end - start) / 2;
-            result = guess(mid);
-            
-            if (result == 0) return mid;
-            if (result < 0) end = mid - 1;
-            else start = mid + 1;
+        int start = 0 , end = n,temp = -1;
+        while(start<=end)
+        {
+            int mid = start + (end - start) / 2;
+            int guess_ = guess(mid);
+            cout<<guess<<endl;
+            if(guess_==0)
+            {
+                return mid;
+            }
+            else if(guess_==1)
+            {
+                start = mid + 1;
+            }
+            else
+            {
+                end = mid - 1;
+            }
         }
-        
-        return start;
+        return temp;
     }
 };
