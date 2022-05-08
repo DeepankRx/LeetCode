@@ -1,31 +1,30 @@
 class Solution {
-public:
-       vector<int> twoSum(vector<int>& num, int target) {
-        int n=num.size();
-        vector<int> nums;
-        nums=num;       //create copy of input vector
-        vector<int> ans;
-        sort(nums.begin(),nums.end());  
-        int l=0,r=n-1;
-        while(l<r){    //apply two pointer on new vector
-            if(nums[l]+nums[r]==target){
-                break;
-            }
-            else if(nums[l]+nums[r]>=target)
-                r--;
-            else
-                l++;
+    vector<int> twoSum(vector<int> nums,int start,int end,int target)
+    {
+        if(start>=end)
+        {
+            return nums;
         }
-        if(nums[l]!=nums[r]){ //find indexes of two numbers in original input vector, if unequal
-                    l=find(num.begin(),num.end(),nums[l])-num.begin();
-                    r=find(num.begin(),num.end(),nums[r])-num.begin();
-                }
-                else{         //if numbers are same, find the next index of number
-                    l=find(num.begin(),num.end(),nums[l])-num.begin();
-                    r=find(num.begin()+l+1,num.end(),nums[r])-num.begin();
-                }
-                ans.push_back(l);
-                ans.push_back(r);
-        return ans;
+            if(nums.at(start)+nums.at(end)==target)
+                return {start,end};
+            else if(nums.at(start)+nums.at(end)<target)
+                return twoSum(nums,start+1,end,target);
+            else
+                return twoSum(nums,start,end-1,target);
+      
+    }
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> temp(nums),result;
+        sort(nums.begin(),nums.end());
+        vector<int> points = twoSum(nums,0,nums.size()-1,target);
+        cout<<points.at(0)<<" "<<points.at(1)<<endl;
+        for(int i=0;i<temp.size();i++)
+        {
+            cout<<temp.at(i)<<" ";
+            if(temp[i]==nums.at(points.at(0)) ||temp[i]==nums.at(points.at(1)))
+                result.push_back(i);
+        }
+        return result;
     }
 };
