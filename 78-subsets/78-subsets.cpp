@@ -1,19 +1,21 @@
 class Solution {
-public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-        int n=nums.size();
-        vector<vector<int>> ans;
-        ans.push_back({});
-        for(int i=0;i<n;i++)
+    vector<vector<int>> result;
+    void subset(vector<int> nums,int index,vector<int> ans)
+    {
+        if(index>=nums.size())
         {
-            int size = ans.size();
-            for(int j=0;j<size;j++)
-            {
-                vector<int> temp = ans[j];
-                temp.push_back(nums[i]);
-                ans.push_back(temp);
-            }
+            result.push_back(ans);
+            return;
         }
-        return ans;
+        ans.push_back(nums.at(index));
+        subset(nums,index+1,ans);
+        ans.pop_back();
+        subset(nums,index+1,ans);
+    }
+    public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> ans;
+        subset(nums,0,ans);
+        return result;
     }
 };
