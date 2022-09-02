@@ -1,25 +1,42 @@
-class Solution {
-public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        vector<double> ans;
-        if(root==NULL)
-            return ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty())
-        {   double sum=0,avg;
-            int size = q.size();
-            for(int i=0;i<size;i++)
+/**
+ *Definition for a binary tree node.
+ *struct TreeNode {
+ *int val;
+ *TreeNode * left;
+ *TreeNode * right;
+ *TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *};
+ */
+class Solution
+{
+    public:
+        vector<double> averageOfLevels(TreeNode *root)
+        {
+            queue<TreeNode*> q;
+            q.push(root);
+            vector<double> ans;
+            while (!q.empty())
             {
-                TreeNode* node = q.front();
-                q.pop();
-                sum+=node->val;
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
+                int size = q.size();
+                double sum = 0;
+               	//after each level
+
+                for (int i = 0; i < size; i++)
+                {
+                    TreeNode *temp = q.front();
+                    q.pop();
+                    if (temp->left)
+                        q.push(temp->left);
+                    if (temp->right)
+                        q.push(temp->right);
+
+                   	// cout << temp->val << "\n";
+                    sum += temp->val;
+                }
+                ans.push_back(sum / size);
             }
-            avg = sum/size;
-            ans.push_back(avg);
+            return ans;
         }
-        return ans;
-    }
 };
