@@ -3,6 +3,7 @@ class Solution
     public:
         int singleNumber(vector<int> &nums)
         {
+                //use bit manipulation
             map<int, int> mp;
             for (auto n: nums)
             {
