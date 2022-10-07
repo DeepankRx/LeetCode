@@ -1,13 +1,11 @@
-class Solution
-{
-    public:
-        bool checkIfPangram(string sentence)
-        {
-            set<char> st;
-            if (sentence.size() < 26)
-                return false;
-            for (auto s: sentence)
-                st.insert(s);
-            return st.size() == 26;
-        }
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        unordered_map<char,int> mp;
+            for(int i=0;i<sentence.size();i++)
+            {
+                    mp[sentence[i]]++;
+            }
+            return mp.size() == 26;
+    }
 };
