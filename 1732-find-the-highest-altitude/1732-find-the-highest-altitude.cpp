@@ -3,19 +3,15 @@ class Solution
     public:
         int largestAltitude(vector<int> &gain)
         {
-            int currMax = 0;
-            int max = INT_MIN;
-            int n = gain.size();
-            vector<int> peaks;
-            peaks.push_back(0);
-            for (int i = 0; i < n; i++)
+            int max_alt = 0;
+            int curr_alt = 0;
+            for (int i = 0; i < gain.size(); i++)
             {
-                peaks.push_back((peaks.at(i) - gain.at(i)));
+                curr_alt += gain[i];
+
+                max_alt = max(curr_alt, max_alt);
+                // cout << curr_alt << " " << max_alt << endl;
             }
-            for (int i = 0; i < peaks.size(); i++)
-            {
-                peaks.at(i) *= -1;
-            }
-            return* max_element(peaks.begin(), peaks.end());
+            return max_alt;
         }
 };
